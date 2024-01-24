@@ -1,0 +1,53 @@
+<nav th:fragment="menu" class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">MYIKEA</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/Productos">Muebles</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''USER'')')}" class="nav-item">
+                <a class="nav-link" href="/Pedidos">Pedidos</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''USER'')')}" class="nav-item">
+                <a class="nav-link" href="/Carrito">Carrito</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="nav-item">
+                <a class="nav-link" href="/Usuarios">Usuarios</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+    <ul class="navbar-nav ml-auto">
+        <div th:if="${#authorization.expression('isAuthenticated')}">
+            <div class="d-flex col">
+                <!-- Mostrar contenido si el usuario está autenticado -->
+                <li th:text="'Bienvenido, ' + ${#authentication.name}" class="nav-item h4">
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Cerrar Sesión</a>
+                </li>
+            </div>
+        </div>
+        <div th:if="${not #authorization.expression('isAuthenticated')}">
+            <!-- Mostrar contenido si el usuario no está autenticado -->
+            <div class="d-flex col">
+                <li class="nav-item">
+                    <a th:href="@{/login}" class="btn btn-warning m-2">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/register}" class="btn btn-success m-2">Registrarse</a>
+                </li>
+            </div>
+
+        </div>
+        </ul>
+    </div>
+</nav>
+
+
+
+
